@@ -6,24 +6,12 @@ import { useState } from "react";
 import "react-quill/dist/quill.bubble.css";
 import ReactQuill from "react-quill";
 import { v4 as uuidv4 } from "uuid";
-import { formats } from "@/lib/utils";
+import { formats, trimHtml } from "@/lib/utils";
 
 const WritePage = ({ userId }: any) => {
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(null);
-  const [media, setMedia] = useState("");
   const [value, setValue] = useState("");
   const [title, setTitle] = useState("");
-  const [catSlug, setCatSlug] = useState("");
-
-  const slugify = (str: string) =>
-    str
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/[\s_-]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  console.log(title, "slug", value);
 
   const handleSubmit = async () => {
     if (title && title) {
@@ -34,7 +22,7 @@ const WritePage = ({ userId }: any) => {
           postId: uuidv4(),
           userId: "jj",
           title: title,
-          content: value,
+          content: trimHtml(value),
           comments: [],
         }),
       });

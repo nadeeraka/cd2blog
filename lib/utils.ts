@@ -9,6 +9,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const trimHtml = (str: string): string => {
+  return str.replace(/<[^>]+>/g, "");
+};
+
+export const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')

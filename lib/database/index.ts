@@ -13,6 +13,6 @@ export const connectToDatabase = async () => {
     cached.promise ||
     mongoose.connect(MONGODB_URI, {
       dbName: "cd2blog",
-      bufferCommands: false,
+      bufferCommands: true,
     });
 };

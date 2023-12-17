@@ -1,7 +1,8 @@
+"use client";
 import React from "react";
 import Card from "./Card";
 import Pagination from "./Pagination";
-import CreateButton from "./CreateButton";
+// import CreateButton from "./CreateButton";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
@@ -18,29 +19,26 @@ type CollectionProps = {
 
 const Collection = ({
   data,
-  emptyTitle,
+
   emptyStateSubtext,
   page,
   totalPages = 0,
   collectionType,
   urlParamName,
-}: CollectionProps) => {
+}: any) => {
+  console.log(data);
   return (
     <>
       {data.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
           <ul className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
-            {data.map((event: any) => {
-              const hasOrderLink = collectionType === "Events_Organized";
-              const hidePrice = collectionType === "My_Tickets";
+            {data.map((post: any) => {
+              // const hasOrderLink = collectionType === "Events_Organized";
+              // const hidePrice = collectionType === "My_Tickets";
 
               return (
-                <li key={event._id} className="flex justify-center">
-                  <Card
-                    event={event}
-                    hasOrderLink={hasOrderLink}
-                    hidePrice={hidePrice}
-                  />
+                <li key={post.id} className="flex justify-center">
+                  <Card postList={post} />
                 </li>
               );
             })}

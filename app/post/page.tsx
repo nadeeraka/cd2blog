@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { getAllPost } from "@/lib/actions/post.action";
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -20,6 +21,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
   // });
 
   const events: any = [];
+  console.log(getAllPost());
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-2 md:py-4">

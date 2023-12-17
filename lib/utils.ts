@@ -21,6 +21,16 @@ export const slugify = (str: string) =>
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+export const removeSymbolsRegex = (input: string): string => {
+  const symbolPattern = /[^a-zA-Z0-9\- ]/g;
+  return input.replace(symbolPattern, "");
+};
+
+export const trimIfOverEight = (str: string): string => {
+  let input = removeSymbolsRegex(str);
+  return input.length <= 8 ? input : input.slice(0, 10);
+};
+
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')

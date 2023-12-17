@@ -5,6 +5,7 @@ const PostSchema = new Schema({
   userId: { type: String, required: true },
   title: { type: String, required: true },
   content: { type: String, required: true },
+  image: { type: String },
   comments: { type: Array },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

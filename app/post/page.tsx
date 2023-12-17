@@ -20,8 +20,10 @@ export default async function Home({ searchParams }: SearchParamProps) {
   //   limit: 6,
   // });
 
+  const allPost = await getAllPost();
+
   const events: any = [];
-  console.log(getAllPost());
+  console.log(allPost);
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-2 md:py-3">
@@ -45,7 +47,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
         </div>
 
         <Collection
-          data={[]}
+          data={allPost}
           emptyTitle="No Events Found"
           emptyStateSubtext="Come back later"
           collectionType="All_Events"

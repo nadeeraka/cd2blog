@@ -18,6 +18,7 @@
     "clsx": "^2.0.0",
     "katex": "^0.16.9",
     "lucide-react": "^0.297.0",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "next": "14.0.4",
     "query-string": "^8.1.0",

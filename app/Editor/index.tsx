@@ -69,27 +69,44 @@ const WritePage = () => {
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
+  // postId: { type: String, required: true, unique: true },
+  // userId: { type: String, required: true, unique: true },
+  // title: { type: String, required: true },
+  // content: { type: String, required: true },
+  // comments: { type: Array },
+  // createdAt: { type: Date, default: Date.now },
+  // updatedAt: { type: Date, default: Date.now },
 
+  const postData = {
+    postId: "2121212121",
+    userId: "swswswsws332",
+    title: "test",
+    content: "test 123",
+    comments: [],
+  };
   const handleSubmit = async () => {
-    const res = await fetch("/api/posts", {
+    const res = await fetch("/api/post/create", {
       method: "POST",
       body: JSON.stringify({
-        title,
-        desc: value,
-        img: media,
-        slug: slugify(title),
-        catSlug: catSlug || "style", //If not selected, choose the general category
+        postId: "2121212121",
+        userId: "swswswsws332",
+        title: "test",
+        content: "test 123",
+        comments: [],
       }),
     });
 
     if (res.status === 200) {
       const data = await res.json();
-      router.push(`/posts/${data.slug}`);
+      // router.push(`/posts/${data.slug}`);
     }
   };
 
   return (
     <div className={styles.container}>
+      <div className="flex justify-center items-center mt-20">
+        <h2 className="text-3xl align-middle font-semibold">Let's Write </h2>
+      </div>
       <input
         type="text"
         placeholder="Title"

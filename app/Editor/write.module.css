@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .select {
@@ -61,9 +62,6 @@
 .textArea {
   font-size: 30px;
   width: 100%;
-  .ql-editor {
-    font-size: 30px;
-  }
 }
 
 .publish {

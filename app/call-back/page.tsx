@@ -1,4 +1,5 @@
 import { auth, currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export default async function Page() {
   // Get the userId from auth() -- if null, the user is not logged in
@@ -11,4 +12,10 @@ export default async function Page() {
   // Get the User object when you need access to the user's information
   const user = await currentUser();
   // Use `user` to render user details or create UI elements
+  console.log(user);
+
+  if (!user?.firstName) {
+    redirect("/profile/create");
+  }
+  redirect("/");
 }

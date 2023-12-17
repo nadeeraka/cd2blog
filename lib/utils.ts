@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-
+import { v1 as uuidv4 } from "uuid";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 
@@ -8,6 +8,28 @@ import { UrlQueryParams, RemoveUrlQueryParams } from "@/types";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const trimHtml = (str: string): string => {
+  return str.replace(/<[^>]+>/g, "");
+};
+
+export const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+export const removeSymbolsRegex = (input: string): string => {
+  const symbolPattern = /[^a-zA-Z0-9\- ]/g;
+  return input.replace(symbolPattern, "");
+};
+
+export const trimIfOverEight = (str: string): string => {
+  let input = removeSymbolsRegex(str);
+  return input.length <= 8 ? input : input.slice(0, 10);
+};
 
 export const formatDateTime = (dateString: Date) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
@@ -103,3 +125,34 @@ export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
 };
+
+const v1options = {
+  node: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab],
+  clockseq: 0x1234,
+  msecs: new Date(),
+  nsecs: 5678,
+};
+export const uid = uuidv4(v1options);
+
+export const formats = [
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "color",
+  "background",
+  "script",
+  "header",
+  "blockquote",
+  "code-block",
+  "indent",
+  "list",
+  "direction",
+  "align",
+  "link",
+  "image",
+  "video",
+  "formula",
+];

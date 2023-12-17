@@ -7,14 +7,19 @@ export type CreateUserParams = {
   email: string;
   photo: string;
 };
-
 export type PostParms = {
   postId: string;
   userId: string;
-  comments?: any[];
-  photo?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  title: string;
+  content: string;
+  comments: PostComment[];
+};
+
+export type PostComment = {
+  commentId: string;
+  userId: string;
+  content: string;
+  postedAt: Date;
 };
 
 export type UpdateUserParams = {

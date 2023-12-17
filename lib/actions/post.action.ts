@@ -11,7 +11,6 @@ import { CreateUserParams, PostParms, UpdateUserParams } from "@/types";
 import Category from "../database/category.model";
 import Post from "@/lib/database/models/post.models";
 import { auth } from "@clerk/nextjs";
-const { userId }: { userId: string | null } = auth();
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: "i" } });

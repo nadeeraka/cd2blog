@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { DeleteConfirmation } from "./DeleteConfirmation";
+import { dateFormat } from "@/lib/dateTime";
 
 type CardProps = {
   event: any;
@@ -12,16 +13,18 @@ type CardProps = {
   hidePrice?: boolean;
 };
 
-const Card = ({ postId, title, content }: any) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId as string;
+const Card = (post: any) => {
+  const { postList } = post;
+  console.log(postList);
+  // const { sessionClaims } = auth();
+  // const userId = sessionClaims?.userId as string;
 
   // const isEventCreator = userId === event.organizer._id.toString();
 
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
       <Link
-        href={`/events/${postId}`}
+        href={`/events/${""}`}
         // style={{ backgroundImage: `url(${event.imageUrl})` }}
         className="flex-center flex-grow bg-gray-50 bg-cover bg-center text-grey-500"
       />
@@ -44,11 +47,11 @@ const Card = ({ postId, title, content }: any) => {
 
       <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
         <div className="flex gap-2">
-          <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">
+          {/* <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60">
             event.isFree ? "FREE" : `$$event.price
-          </span>
+          </span> */}
           <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500 line-clamp-1">
-            event.category.name
+            {postList.title}
           </p>
         </div>
 
@@ -56,18 +59,18 @@ const Card = ({ postId, title, content }: any) => {
           {/* {formatDateTime(event.startDateTime).dateTime} */}
         </p>
 
-        <Link href={`/events/${postId}`}>
+        <Link href={`/events/${"postId"}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
-            {title}
+            {postList.content}
           </p>
         </Link>
 
         <div className="flex-between w-full">
           <p className="p-medium-14 md:p-medium-16 text-grey-600">
-            event.organizer.firstName event.organizer.lastName
+            {dateFormat(postList?.createdAt)}
           </p>
 
-          <Link href={`/orders?eventId=event._id}`} className="flex gap-2">
+          {/* <Link href={`/orders?eventId=event._id}`} className="flex gap-2">
             <p className="text-primary-500">Order Details</p>
             <Image
               src="/assets/icons/arrow.svg"
@@ -75,7 +78,7 @@ const Card = ({ postId, title, content }: any) => {
               width={10}
               height={10}
             />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

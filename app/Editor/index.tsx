@@ -2,16 +2,13 @@
 
 import Image from "next/image";
 import styles from "./write.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-quill/dist/quill.bubble.css";
-import { useRouter } from "next/navigation";
-// import { useSession } from "next-auth/react";
-
 import ReactQuill from "react-quill";
+import { v4 as uuidv4 } from "uuid";
+import { formats } from "@/lib/utils";
 
-const WritePage = () => {
-  const router = useRouter();
-
+const WritePage = ({ userId }: any) => {
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState(null);
   const [media, setMedia] = useState("");
@@ -19,86 +16,32 @@ const WritePage = () => {
   const [title, setTitle] = useState("");
   const [catSlug, setCatSlug] = useState("");
 
-  //   useEffect(() => {
-  //     const storage = getStorage(app);
-  //     const upload = () => {
-  //       const name = new Date().getTime() + file.name;
-  //       const storageRef = ref(storage, name);
-
-  //       const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //       uploadTask.on(
-  //         "state_changed",
-  //         (snapshot) => {
-  //           const progress =
-  //             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //           console.log("Upload is " + progress + "% done");
-  //           switch (snapshot.state) {
-  //             case "paused":
-  //               console.log("Upload is paused");
-  //               break;
-  //             case "running":
-  //               console.log("Upload is running");
-  //               break;
-  //           }
-  //         },
-  //         (error) => {},
-  //         () => {
-  //           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-  //             setMedia(downloadURL);
-  //           });
-  //         }
-  //       );
-  //     };
-
-  //     file && upload();
-  //   }, [file]);
-
-  //   if (status === "loading") {
-  //     return <div className={styles.loading}>Loading...</div>;
-  //   }
-
-  //   if (status === "unauthenticated") {
-  //     router.push("/");
-  //   }
-
-  const slugify = (str: any) =>
+  const slugify = (str: string) =>
     str
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
-  // postId: { type: String, required: true, unique: true },
-  // userId: { type: String, required: true, unique: true },
-  // title: { type: String, required: true },
-  // content: { type: String, required: true },
-  // comments: { type: Array },
-  // createdAt: { type: Date, default: Date.now },
-  // updatedAt: { type: Date, default: Date.now },
+  console.log(title, "slug", value);
 
-  const postData = {
-    postId: "2121212121",
-    userId: "swswswsws332",
-    title: "test",
-    content: "test 123",
-    comments: [],
-  };
   const handleSubmit = async () => {
-    const res = await fetch("/api/post/create", {
-      method: "POST",
-      body: JSON.stringify({
-        postId: "2121212121",
-        userId: "swswswsws332",
-        title: "test",
-        content: "test 123",
-        comments: [],
-      }),
-    });
-
-    if (res.status === 200) {
-      const data = await res.json();
-      // router.push(`/posts/${data.slug}`);
+    if (title && title) {
+      console.log("run");
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        body: JSON.stringify({
+          postId: uuidv4(),
+          userId: "jj",
+          title: title,
+          content: value,
+          comments: [],
+        }),
+      });
+      if (res.status === 200) {
+        const data = await res.json();
+        // router.push(`/posts/${data.slug}`);
+      }
     }
   };
 
@@ -154,6 +97,7 @@ const WritePage = () => {
           theme="bubble"
           value={value}
           onChange={setValue}
+          formats={formats}
           placeholder="Tell your story..."
         />
       </div>

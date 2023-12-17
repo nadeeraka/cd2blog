@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-
+import { v1 as uuidv4 } from "uuid";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 
@@ -103,3 +103,34 @@ export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
 };
+
+const v1options = {
+  node: [0x01, 0x23, 0x45, 0x67, 0x89, 0xab],
+  clockseq: 0x1234,
+  msecs: new Date(),
+  nsecs: 5678,
+};
+export const uid = uuidv4(v1options);
+
+export const formats = [
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "color",
+  "background",
+  "script",
+  "header",
+  "blockquote",
+  "code-block",
+  "indent",
+  "list",
+  "direction",
+  "align",
+  "link",
+  "image",
+  "video",
+  "formula",
+];

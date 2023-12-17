@@ -12,7 +12,7 @@ export default async function Page() {
   // Get the User object when you need access to the user's information
   const user = await currentUser();
   // Use `user` to render user details or create UI elements
-  console.log(user);
+  // console.log(user?.email_addresses[0]);
 
   if (user?.firstName) {
     redirect("/profile/create");

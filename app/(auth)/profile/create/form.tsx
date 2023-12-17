@@ -28,39 +28,38 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { createProfile } from "@/app/api/user/create/route";
+import { redirect, useRouter } from "next/navigation";
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: ".",
-  urls: [
-    { value: "https://shadcn.com" },
-    { value: "http://twitter.com/shadcn" },
-  ],
-};
-
 export function ProfileForm() {
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
-    defaultValues,
-    mode: "onChange",
-  });
-
-  const { fields, append } = useFieldArray({
-    name: "urls",
-    control: form.control,
-  });
-
-  const handleSubmit = () => {};
-
+  const router = useRouter();
   const [name, setName] = useState("");
+
+  const handleSubmit = async () => {
+    console.log("run");
+    try {
+      await createProfile(name);
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
+    } catch (error) {
+      router.push("/");
+    }
+    toast({
+      title: "Profile updated",
+      description: "Your profile has been updated successfully.",
+    });
+  };
 
   return (
     <>
       <Input onChange={(e) => setName(e.target.value)} placeholder="Nimantha" />
 
-      <Button type="submit">Update profile</Button>
+      <Button onClick={handleSubmit} type="submit">
+        Update profile
+      </Button>
     </>
   );
 }

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { ProfileForm } from "./form";
 import { Separator } from "@radix-ui/react-separator";

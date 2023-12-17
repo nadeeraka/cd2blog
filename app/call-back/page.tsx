@@ -14,7 +14,7 @@ export default async function Page() {
   // Use `user` to render user details or create UI elements
   console.log(user);
 
-  if (!user?.firstName) {
+  if (user?.firstName) {
     redirect("/profile/create");
   }
   redirect("/");

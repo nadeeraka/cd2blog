@@ -6,7 +6,7 @@ import { useState } from "react";
 import "react-quill/dist/quill.bubble.css";
 import ReactQuill from "react-quill";
 import { v4 as uuidv4 } from "uuid";
-import { formats, trimHtml, trimIfOverEight, trimIfOverTen } from "@/lib/utils";
+import { formats, trimHtml } from "@/lib/utils";
 import { createPost } from "@/lib/actions/post.action";
 
 const WritePage = ({ userId }: any) => {
@@ -15,31 +15,15 @@ const WritePage = ({ userId }: any) => {
   const [title, setTitle] = useState("");
 
   const handleSubmit = async () => {
-    // if (title && title) {
-    //   console.log("run");
-    //   const res = await fetch("/api/post/create", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       postId: uuidv4(),
-    //       userId: uuidv4(),
-    //       title: title,
-    //       content: trimHtml(value),
-    //       comments: [],
-    //     }),
-    //   });
-    //   if (res.status === 200) {
-    //     const data = await res.json();
-    //     // router.push(`/posts/${data.slug}`);
-    //   }
-    // }
-
-    const result = createPost({
-      userId: "kqsqsj",
-      postId: uuidv4(),
-      title: title,
-      content: trimHtml(value),
-      comments: [],
-    });
+    if (title && title) {
+      const result = createPost({
+        userId: uuidv4(),
+        postId: uuidv4(),
+        title: title,
+        content: trimHtml(value),
+        comments: [],
+      });
+    }
   };
 
   return (

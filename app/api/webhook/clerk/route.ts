@@ -5,6 +5,7 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
+import { createUser, deleteUser, updateUser } from "@/lib/actions/use.actions";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -69,17 +70,17 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
-    // const newUser = await createUser(user);
+    const newUser = await createUser(user);
 
-    // if(newUser) {
-    //   await clerkClient.users.updateUserMetadata(id, {
-    //     publicMetadata: {
-    //       userId: newUser._id
-    //     }
-    //   })
-    // }
+    if (newUser) {
+      await clerkClient.users.updateUserMetadata(id, {
+        publicMetadata: {
+          userId: newUser._id,
+        },
+      });
+    }
 
-    // return NextResponse.json({ message: 'OK', user: newUser })
+    return NextResponse.json({ message: "OK", user: newUser });
   }
 
   if (eventType === "user.updated") {
@@ -92,17 +93,17 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
-    // const updatedUser = await updateUser(id, user)
+    const updatedUser = await updateUser(id, user);
 
-    // return NextResponse.json({ message: 'OK', user: updatedUser })
+    return NextResponse.json({ message: "OK", user: updatedUser });
   }
 
   if (eventType === "user.deleted") {
     const { id } = evt.data;
 
-    // const deletedUser = await deleteUser(id!)
+    const deletedUser = await deleteUser(id!);
 
-    // return NextResponse.json({ message: 'OK', user: deletedUser })
+    return NextResponse.json({ message: "OK", user: deletedUser });
   }
 
   return new Response("", { status: 200 });

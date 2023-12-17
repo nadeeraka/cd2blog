@@ -17,26 +17,7 @@ const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: "i" } });
 };
 
-// CREATE
-// export async function createEvent({ userId, event, path }: CreateEventParams) {
-//   try {
-//     await connectToDatabase();
-
-//     const organizer = await User.findById(userId);
-//     if (!organizer) throw new Error("Organizer not found");
-
-//     const newEvent = await Event.create({
-//       ...event,
-//       category: event.categoryId,
-//       organizer: userId,
-//     });
-//     revalidatePath(path);
-
-//     return JSON.parse(JSON.stringify(newEvent));
-//   } catch (error) {
-//     handleError(error);
-//   }
-// }
+// CREATE POST
 
 export const createPost = async ({
   postId,
@@ -117,44 +98,3 @@ export async function deletePost(id: string) {
     handleError(error);
   }
 }
-
-// export async function getAllEvents({ query, limit = 6, page, category }:any) {
-//   try {
-//     await connectToDatabase()
-
-//     const titleCondition = query ? { title: { $regex: query, $options: 'i' } } : {}
-//     const categoryCondition = category ? await getCategoryByName(category) : null
-//     const conditions = {
-//       $and: [titleCondition, categoryCondition ? { category: categoryCondition._id } : {}],
-//     }
-
-//     const skipAmount = (Number(page) - 1) * limit
-//     const eventsQuery = Event.find(conditions)
-//       .sort({ createdAt: 'desc' })
-//       .skip(skipAmount)
-//       .limit(limit)
-
-//     const events = await populateEvent(eventsQuery)
-//     const eventsCount = await Event.countDocuments(conditions)
-
-//     return {
-//       data: JSON.parse(JSON.stringify(events)),
-//       totalPages: Math.ceil(eventsCount / limit),
-//     }
-//   } catch (error) {
-//     handleError(error)
-//   }
-// }
-
-// export async function getUserById(userId: string) {
-//   try {
-//     await connectToDatabase();
-
-//     const user = await User.findById(userId);
-
-//     if (!user) throw new Error("User not found");
-//     return JSON.parse(JSON.stringify(user));
-//   } catch (error) {
-//     handleError(error);
-//   }
-// }

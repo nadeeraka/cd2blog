@@ -24,12 +24,12 @@ export default async function Home({ searchParams }: SearchParamProps) {
   console.log(getAllPost());
   return (
     <>
-      <section className="bg-primary-50 bg-dotted-pattern bg-contain py-2 md:py-4">
-        <div className="wrapper grid grid-cols-1 gap-2 md:grid-cols-2 2xl:gap-0">
-          <div className="flex flex-col justify-center gap-4">
-            <h2 className="h2-bold">let's create something meaning full</h2>
+      <section className="bg-primary-50 bg-dotted-pattern bg-contain py-2 md:py-3">
+        <div className="wrapper ">
+          <div className="flex  justify-between items-center gap-4">
+            <h2 className="h3-bold">let's create something meaning full</h2>
             <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="#events">Explore Now</Link>
+              <Link href="#events">Create post</Link>
             </Button>
           </div>
         </div>

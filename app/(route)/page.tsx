@@ -31,7 +31,7 @@ export default async function Home() {
               losing your enthusiasm.
             </p>
             <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="#events">Explore Now</Link>
+              <Link href="/postlist">List of Post</Link>
             </Button>
           </div>
 
